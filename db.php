@@ -1,11 +1,11 @@
 <?php
 $server="localhost";
-$user="root";
-$password="";
+$anvandare="root";
+$losenord="";
 $db="ant_app";
 
-$db=new mysqli($server,$user,$password,$db);
+$db=new mysqli($server,$anvandare,$losenord,$db);
     if($db->connect_error){
-        die("Connection failed: " . mysqli_connect_error());
+        die("Det blev fel på kopplingen: " . mysqli_connect_error());
     }
 ?>
