@@ -10,4 +10,6 @@
 
     $svar ="";
     skriv_ut_svar($svar);
+    $db->close();
+
 ?>

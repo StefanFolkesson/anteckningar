@@ -16,9 +16,9 @@
     $stmt->bind_param("s", $namn);
     $stmt->execute();
     $result = $stmt->get_result();
-    $svar = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $svar = $result->fetch_assoc();
     
     skriv_ut_svar($svar);
     
-    mysqli_close($db);
+    $db->close();
 ?>
