@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 17 jan 2024 kl 13:08
+-- Tid vid skapande: 22 jan 2024 kl 10:56
 -- Serverversion: 10.4.21-MariaDB
 -- PHP-version: 8.0.10
 
@@ -95,16 +95,19 @@ CREATE TABLE `anvandare` (
   `anvandare_id` int(11) NOT NULL,
   `installningar` text COLLATE utf32_swedish_ci DEFAULT NULL,
   `namn` varchar(100) COLLATE utf32_swedish_ci NOT NULL,
-  `losen` varchar(100) COLLATE utf32_swedish_ci NOT NULL
+  `losen` varchar(100) COLLATE utf32_swedish_ci NOT NULL,
+  `inloggning_nyckel` varchar(20) COLLATE utf32_swedish_ci NOT NULL,
+  `nyckel_utgangstid` datetime NOT NULL,
+  `epost` varchar(50) COLLATE utf32_swedish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_swedish_ci;
 
 --
 -- Dumpning av Data i tabell `anvandare`
 --
 
-INSERT INTO `anvandare` (`anvandare_id`, `installningar`, `namn`, `losen`) VALUES
-(1, NULL, 'stefan', 'stefan'),
-(2, NULL, 'billy', 'billy');
+INSERT INTO `anvandare` (`anvandare_id`, `installningar`, `namn`, `losen`, `inloggning_nyckel`, `nyckel_utgangstid`, `epost`) VALUES
+(1, NULL, 'stefan', 'stefan', 'asdasd', '2024-01-22 10:47:07', ''),
+(2, NULL, 'billy', 'billy', 'ee', '2024-01-01 11:30:14', '');
 
 -- --------------------------------------------------------
 
@@ -126,6 +129,7 @@ CREATE TABLE `anv_anv` (
 
 CREATE TABLE `filer` (
   `filer_id` int(11) NOT NULL,
+  `anteckning_id` int(11) NOT NULL,
   `typ` enum('ljud','bild') COLLATE utf32_swedish_ci NOT NULL,
   `data` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_swedish_ci;
@@ -179,7 +183,8 @@ ALTER TABLE `ant_tag`
 -- Index för tabell `anvandare`
 --
 ALTER TABLE `anvandare`
-  ADD PRIMARY KEY (`anvandare_id`);
+  ADD PRIMARY KEY (`anvandare_id`),
+  ADD UNIQUE KEY `namn` (`namn`);
 
 --
 -- Index för tabell `anv_anv`
@@ -193,7 +198,8 @@ ALTER TABLE `anv_anv`
 -- Index för tabell `filer`
 --
 ALTER TABLE `filer`
-  ADD PRIMARY KEY (`filer_id`);
+  ADD PRIMARY KEY (`filer_id`),
+  ADD KEY `anteckning_id` (`anteckning_id`);
 
 --
 -- Index för tabell `tagg`
@@ -253,6 +259,12 @@ ALTER TABLE `ant_tag`
 ALTER TABLE `anv_anv`
   ADD CONSTRAINT `anv_anv_ibfk_1` FOREIGN KEY (`anvandare_id_1`) REFERENCES `anvandare` (`anvandare_id`),
   ADD CONSTRAINT `anv_anv_ibfk_2` FOREIGN KEY (`anvandare_id_2`) REFERENCES `anvandare` (`anvandare_id`);
+
+--
+-- Restriktioner för tabell `filer`
+--
+ALTER TABLE `filer`
+  ADD CONSTRAINT `filer_ibfk_1` FOREIGN KEY (`anteckning_id`) REFERENCES `anteckning` (`anteckning_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
