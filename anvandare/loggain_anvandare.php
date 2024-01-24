@@ -15,7 +15,7 @@
         $anvandare_id=$svar['anvandare_id'];
         $inloggning_nyckel="asdasd";//skapa_nyckel();
         $sql="UPDATE anvandare 
-              SET inloggning_nyckel=? , nyckel_utgangstid= now() + interval 10 minute 
+              SET inloggning_nyckel=? , nyckel_utgangstid= now() + interval 30 minute 
               WHERE anvandare_id=?";
         $stmt=$db->prepare($sql);
         $stmt->bind_param("si",$inloggning_nyckel,$anvandare_id);
