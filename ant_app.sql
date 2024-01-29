@@ -73,7 +73,7 @@ INSERT INTO `ant_anv` (`anteckning_id`, `anvandare_id`, `agare`, `favorit`) VALU
 --
 
 CREATE TABLE `ant_tag` (
-  `antecnking_id` int(11) NOT NULL,
+  `anteckning_id` int(11) NOT NULL,
   `tagg_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_swedish_ci;
 
