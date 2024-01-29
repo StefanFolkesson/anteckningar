@@ -21,9 +21,8 @@
             JOIN ant_anv ON anvandare.anvandare_id=ant_anv.anvandare_id  
             JOIN anteckning ON anteckning.anteckning_id = ant_anv.anteckning_id
             WHERE anvandare.anvandare_id = ?";
-            $svar=hamta_data($db,$sql,"i", $anvandare_id)->fetch_assoc();
+            $svar=hamta_data($db,$sql,"i", $anvandare_id)->fetch_all(MYSQLI_ASSOC);
             skriv_ut_svar($svar);
-            
             $db->close();
         }
     }

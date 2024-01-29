@@ -38,20 +38,18 @@
             if(isset($nytt_namn)){
                 $sql = "UPDATE anvandare SET namn = ? WHERE anvandare_id = ?";
                 hamta_data($db,$sql,"si", $nytt_namn,$anvandare_id);
-                $svar ="";  // ???
-                skriv_ut_svar($svar);  //???
-                $db->close();
+                $svar ="NAMN";  // ???
             }
             if(isset($nytt_losen)){
                 $sql = "UPDATE anvandare SET losen = ? WHERE anvandare_id = ?";
                 hamta_data($db,$sql,"si",  $nytt_losen,$anvandare_id);
-                $svar ="";  //???
-                skriv_ut_svar($svar); //???)
-                $db->close();
+                $svar ="losen";  // ???
             }
         }        
     }
     else {
-        skriv_ut_svar('Du är inte inloggad');
     }
+    skriv_ut_svar($svar);  //???
+    $db->close();
+
 ?>

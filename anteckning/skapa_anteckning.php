@@ -25,7 +25,7 @@
             $titel = $_REQUEST['titel'];
             $text = $_REQUEST['text'];
             $sql ="INSERT INTO anteckning (titel,text,skapad_datum) VALUES(?,?,now())";
-            hamta_data($db,$sql,"ss", $titel,$text);
+            hamta_data($db,$sql,"ss", $titel, $text);
             // Error hantering om man inte kan binda den till användaren? 
             $sql ="INSERT INTO ant_anv (anvandare_id,anteckning_id,agare) VALUES(?,(SELECT LAST_INSERT_ID()),?)";
             hamta_data($db,$sql,"ii",$anvandare_id,$anvandare_id);
