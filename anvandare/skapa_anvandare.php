@@ -23,12 +23,11 @@ if (strlen($namn) > namn_langd || strlen($losen) > losen_langd || strlen($email)
 }
 
 //skapa användare
-$stmt = $db->prepare("INSERT INTO anvandare (namn, losen, epost) VALUES (?,?,?)");
-$stmt->bind_param("sss", $namn, $losen, $email);
+$sql="INSERT INTO anvandare (namn, losen, epost) VALUES (?,?,?)");
 
-// error hantering
+// error hantering skall nog vara i funktionen
 try {
-    $stmt->execute();
+    hamta_data($db,sql,"sss", $namn, $losen, $email);
 } catch (mysqli_sql_exception $e) {
     if (!str_contains($e, "Duplicate entry")) {
         echo skriv_ut_svar("Nåt gick fel: $e");
@@ -41,17 +40,6 @@ try {
     $db->close();
     return;
 }
-
-/* DENNA KOD FUNGERAR INTE
-if ($stmt->execute()){    
-} else {
-    echo skriv_ut_svar("anvandare finns redan");
-    $stmt->close();
-    $db->close();
-    return;
-}
-*/
-
 echo skriv_ut_svar("Anvandare skapad");
 
 $stmt->close();

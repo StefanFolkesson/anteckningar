@@ -6,10 +6,7 @@
     $losen=$_REQUEST['losen'];
     
     $sql="SELECT anvandare_id FROM anvandare WHERE namn=? AND losen=?";
-    $stmt=$db->prepare($sql);
-    $stmt->bind_param("ss",$namn,$losen);
-    $stmt->execute();
-    $resultat=$stmt->get_result();
+    $resultat=hamta_data($db,$sql,"ss",$namn,$losen);
     if($resultat->num_rows==1){
         $svar = $resultat->fetch_assoc();
         $anvandare_id=$svar['anvandare_id'];
@@ -17,18 +14,8 @@
         $sql="UPDATE anvandare 
               SET inloggning_nyckel=? , nyckel_utgangstid= now() + interval 30 minute 
               WHERE anvandare_id=?";
-        $stmt=$db->prepare($sql);
-        $stmt->bind_param("si",$inloggning_nyckel,$anvandare_id);
-        $stmt->execute();
-        $resultat=$stmt->get_result();
-
-        // Vad händer här?
+        hamta_data($db,$sql,"si",$inloggning_nyckel,$anvandare_id);
     }
-    
-
-
-
-
     $svar =[];  // Nyckeln och användarid
     $svar['nyckel']=$inloggning_nyckel;// = $inloggning_nyckel;
     $svar['anvandare_id']=$anvandare_id;// = $anvandare_id;  

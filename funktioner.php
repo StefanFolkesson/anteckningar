@@ -25,6 +25,12 @@ function verifiera_anvandare($db,$anvandare_id,$nyckel){
     else{
         return false;
     }  
-
+}
+function hamta_data($db,$sql,$bind,...$var){
+    $stmt = $db->prepare($sql); 
+    $stmt->bind_param($bind, ...$var);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result;
 }
 ?>

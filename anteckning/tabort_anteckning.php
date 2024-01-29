@@ -13,62 +13,35 @@
         $db->close();
         die;
     }
-
     if(verifiera_anvandare($db,$anvandare_id,$nyckel)){
-
         $sql="SELECT agare FROM ant_anv 
         WHERE (anteckning_id,anvandare_id) = (?,?)";
-        $stmt=$db->prepare($sql);
-        $stmt->bind_param("ii", $anteckning_id,$anvandare_id);
-        $stmt->execute();
-        $result=$stmt->get_result();
-        $svar = $result->fetch_assoc();
-        $stmt->close();
+        $svar = hamta_data($db,$sql,"ii", $anteckning_id,$anvandare_id)->fetch_assoc();
         if($svar["agare"] == 1){
             $svar = "worked: owner";
             
             $sql="DELETE FROM ant_anv
             WHERE anteckning_id = ?";
-            $stmt=$db->prepare($sql);
-            $stmt->bind_param("i", $anteckning_id);
-            $stmt->execute();
-            $result=$stmt->get_result();
-            $stmt->close();
+            hamta_data($db,$sql,"i", $anteckning_id);
 
             $sql="DELETE FROM ant_tag
             WHERE anteckning_id = ?";
-            $stmt=$db->prepare($sql);
-            $stmt->bind_param("i", $anteckning_id);
-            $stmt->execute();
-            $result=$stmt->get_result();
-            $stmt->close();
+            hamta_data($db,$sql,"i", $anteckning_id);
     
             $sql="DELETE FROM anteckning 
             WHERE anteckning_id = ?";
-            $stmt=$db->prepare($sql);
-            $stmt->bind_param("i", $anteckning_id);
-            $stmt->execute();
-            $result=$stmt->get_result();
-            $stmt->close();
+            hamta_data($db,$sql,"i", $anteckning_id);
             
         } else {
             $svar = "worked: not owner";
             
             $sql="DELETE FROM ant_anv
             WHERE (anteckning_id,anvandare_id) = (?,?)";
-            $stmt=$db->prepare($sql);
-            $stmt->bind_param("ii", $anteckning_id,$anvandare_id);
-            $stmt->execute();
-            $result=$stmt->get_result();
-            $stmt->close();
-            
+            hamta_data($db,$sql,"ii", $anteckning_id,$anvandare_id);
         }
     } else {
         $svar = "inkorrekt nyckel";
     }
-
-
     skriv_ut_svar($svar);
     $db->close();
-
 ?>

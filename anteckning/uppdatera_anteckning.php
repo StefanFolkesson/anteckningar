@@ -18,19 +18,13 @@
         else{
             $svar= "Du skickade inte in någon text eller titel variabel";
         }
-        
-        $stmt = $db->prepare($sql); 
-        
         if (isset($titel)){
-            $stmt->bind_param("si", $titel, $anteckning_id);
+            hamta_data($db,$sql,"si", $titel, $anteckning_id);
         } elseif(isset($text)){
-            $stmt->bind_param("si", $text, $anteckning_id);
-        } elseif(isset($titel) && ($text)){
-            $stmt->bind_param("ssi", $titel, $text, $anteckning_id);
+            hamta_data($db,$sql,"si", $text, $anteckning_id);
+        } elseif(isset($titel) && isset($text)){
+            hamta_data($db,$sql,"ssi", $titel, $text, $anteckning_id);
         }
-    
-        $stmt->execute();
-        $stmt->close();
     }
     else
     {
