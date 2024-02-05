@@ -8,8 +8,8 @@
         $sql="SELECT anvandare_id FROM anvandare WHERE namn=? AND losen=?";
         $resultat=hamta_data($db,$sql,"ss",$namn,$losen);
         if($resultat->num_rows==1){
-            $svar = $resultat->fetch_assoc();
-            $anvandare_id=$svar['anvandare_id'];
+            $svarSQL = $resultat->fetch_assoc();
+            $anvandare_id=$svarSQL['anvandare_id'];
             $inloggning_nyckel="asdasd";//skapa_nyckel();
             $sql="UPDATE anvandare 
                 SET inloggning_nyckel=? , nyckel_utgangstid= now() + interval 30 minute 
@@ -18,10 +18,8 @@
             $svar['nyckel']=$inloggning_nyckel;// = $inloggning_nyckel;
             $svar['anvandare_id']=$anvandare_id;// = $anvandare_id;  
         } else {
-            $svar['error']="fel";
+            $svar['error']="Verifieringen gick fel";
         }
-    } else {
-        $svar['error']="saknar losen eller namn";
     }
     skriv_ut_svar($svar);
     $db->close();

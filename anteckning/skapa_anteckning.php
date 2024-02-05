@@ -19,9 +19,6 @@
             hamta_data($db,$sql,"iii",$anvandare_id,$anvandare_id,$favorit);
             $svar['error']="Ok!"; //<------
         }
-        else {
-            $svar['error']="fel anv eller losen";
-        }
         skriv_ut_svar($svar);
     }
     $db->close();

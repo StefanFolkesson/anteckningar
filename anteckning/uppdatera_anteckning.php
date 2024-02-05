@@ -46,9 +46,6 @@
             }
         }
     }
-    else {
-        $svar['error']="fel anv eller losen";
-    }
     skriv_ut_svar($svar);
     $db->close();
 ?>

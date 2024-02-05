@@ -46,9 +46,6 @@
                 hamta_data($db,$sql,"ii", $anteckning_id,$anvandare_id);
             }
         }
-        else {
-            $svar['error']="fel anv eller losen";
-        }
     }
     skriv_ut_svar($svar);
     $db->close();

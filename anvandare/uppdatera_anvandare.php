@@ -1,7 +1,6 @@
 <?php   
     require_once('..\db.php');
     require_once('..\funktioner.php');
-    
     $svar=[];
     if(kolla_data('anvandare_id','nyckel')){
         $anvandare_id = $_REQUEST['anvandare_id'];
@@ -16,7 +15,6 @@
         }
         if(verifiera_anvandare($db,$anvandare_id,$nyckel)){
             if($nytt_namn!=""){
-                echo $nytt_namn;
                 $sql = "UPDATE anvandare SET namn = ? WHERE anvandare_id = ?";
                 hamta_data($db,$sql,"si", $nytt_namn,$anvandare_id);
                 $svar['error'] ="NAMN"; 

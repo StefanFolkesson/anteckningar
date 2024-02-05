@@ -13,9 +13,6 @@
             WHERE anvandare.anvandare_id = ?";
             $svar=hamta_data($db,$sql,"i", $anvandare_id)->fetch_all(MYSQLI_ASSOC);
         }
-        else {
-            $svar['error']="fel anv eller losen";
-        }
         skriv_ut_svar($svar);
     }
     $db->close();
