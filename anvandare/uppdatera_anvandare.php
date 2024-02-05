@@ -2,54 +2,39 @@
     require_once('..\db.php');
     require_once('..\funktioner.php');
     
-    $svar="";
-    //hämta id och nyckel
-    if(isset($_REQUEST ['anvandare_id'])) {
+    $svar=[];
+    if(kolla_data('anvandare_id','nyckel')){
         $anvandare_id = $_REQUEST['anvandare_id'];
-    } else{
-        $svar=$svar."Ha ett användare id";
-    }
-
-    if(isset($_REQUEST['nyckel'])){
         $nyckel = $_REQUEST['nyckel'];
-    }else{
-        $svar=$svar."ha en nyckel";
-    }
-
-    if(isset($_REQUEST['nytt_namn'])){
-        $nytt_namn = $_REQUEST['nytt_namn'];
-    }else {
-        $svar=$svar."Du har inte angivit ett användarnamn";
-    }
-    $anvandare_id = $_REQUEST["anvandare_id"];
-    $nyckel = $_REQUEST['nyckel'];
-
-    if(isset($_REQUEST['nytt_losen'])){
-        $nytt_losen = $_REQUEST['nytt_losen'];
-    } else {
-        $svar=$svar."Du har inte angivit ett lösenord";
-    }
-
-    if($svar==""){
-    //verifiera användare
+        $nytt_losen="";
+        $nytt_namn="";
+        if(isset($_REQUEST['nytt_namn'])){
+            $nytt_namn = $_REQUEST['nytt_namn'];
+        }
+        if(isset($_REQUEST['nytt_losen'])){
+            $nytt_losen = $_REQUEST['nytt_losen'];
+        }
         if(verifiera_anvandare($db,$anvandare_id,$nyckel)){
-            //Requesta ändringar
-            //förbered sql fråga
-            if(isset($nytt_namn)){
+            if($nytt_namn!=""){
+                echo $nytt_namn;
                 $sql = "UPDATE anvandare SET namn = ? WHERE anvandare_id = ?";
                 hamta_data($db,$sql,"si", $nytt_namn,$anvandare_id);
-                $svar ="NAMN";  // ???
+                $svar['error'] ="NAMN"; 
             }
-            if(isset($nytt_losen)){
+            if($nytt_losen!=""){
                 $sql = "UPDATE anvandare SET losen = ? WHERE anvandare_id = ?";
                 hamta_data($db,$sql,"si",  $nytt_losen,$anvandare_id);
-                $svar ="losen";  // ???
+                $svar['error'] ="losen"; 
             }
-        }        
+        }  
+        else {
+            $svar['error']='ingen inloggning';
+        }      
     }
     else {
+        $svar['error']="aööt är fel";
     }
-    skriv_ut_svar($svar);  //???
+    skriv_ut_svar($svar);  
     $db->close();
 
 ?>

@@ -33,4 +33,18 @@ function hamta_data($db,$sql,$bind,...$var){
     $result = $stmt->get_result();
     return $result;
 }
+function kolla_data(...$lista_av_nycklar) {
+    $ar_ok=true;
+    $svar=[];
+    foreach($lista_av_nycklar as $nyckel){
+        if(!isset($_REQUEST[$nyckel])){
+            $svar['error']="Du måste ha en $nyckel. ";
+            $ar_ok=false;
+        }
+    }
+    if(!$ar_ok){
+        skriv_ut_svar($svar);
+    }
+    return $ar_ok;
+}
 ?>
