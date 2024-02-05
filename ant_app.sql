@@ -73,7 +73,7 @@ INSERT INTO `ant_anv` (`anteckning_id`, `anvandare_id`, `agare`, `favorit`) VALU
 --
 
 CREATE TABLE `ant_tag` (
-  `antecnking_id` int(11) NOT NULL,
+  `anteckning_id` int(11) NOT NULL,
   `tagg_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_swedish_ci;
 
@@ -81,7 +81,7 @@ CREATE TABLE `ant_tag` (
 -- Dumpning av Data i tabell `ant_tag`
 --
 
-INSERT INTO `ant_tag` (`antecnking_id`, `tagg_id`) VALUES
+INSERT INTO `ant_tag` (`anteckning_id`, `tagg_id`) VALUES
 (1, 1),
 (1, 2);
 
@@ -175,9 +175,9 @@ ALTER TABLE `ant_anv`
 -- Index för tabell `ant_tag`
 --
 ALTER TABLE `ant_tag`
-  ADD PRIMARY KEY (`antecnking_id`,`tagg_id`),
+  ADD PRIMARY KEY (`anteckning_id`,`tagg_id`),
   ADD KEY `tagg_id` (`tagg_id`),
-  ADD KEY `antecnking_id` (`antecnking_id`);
+  ADD KEY `anteckning_id` (`anteckning_id`);
 
 --
 -- Index för tabell `anvandare`
@@ -250,7 +250,7 @@ ALTER TABLE `ant_anv`
 -- Restriktioner för tabell `ant_tag`
 --
 ALTER TABLE `ant_tag`
-  ADD CONSTRAINT `ant_tag_ibfk_1` FOREIGN KEY (`antecnking_id`) REFERENCES `anteckning` (`anteckning_id`),
+  ADD CONSTRAINT `ant_tag_ibfk_1` FOREIGN KEY (`anteckning_id`) REFERENCES `anteckning` (`anteckning_id`),
   ADD CONSTRAINT `ant_tag_ibfk_2` FOREIGN KEY (`tagg_id`) REFERENCES `tagg` (`tagg_id`);
 
 --
